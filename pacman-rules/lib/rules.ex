@@ -1,16 +1,12 @@
 defmodule Rules do
-  def eat_ghost?(true, true), do: true
-  def eat_ghost?(_power_pellet_active, _touching_ghost), do: false
+  def eat_ghost?(power_pellet_active, touching_ghost), do: power_pellet_active and touching_ghost
 
-  def score?(_touching_power_pellet, true), do: true
-  def score?(true, _touching_dot), do: true
-  def score?(_touching_power_pellet, _touching_dot), do: false
+  def score?(touching_power_pellet, touching_dot), do: touching_power_pellet or touching_dot
 
-  def lose?(false, true), do: true
-  def lose?(_power_pellet_active, _touching_ghost), do: false
+  def lose?(power_pellet_active, touching_ghost), do: not power_pellet_active and touching_ghost
 
   def win?(true, power_pellet_active, touching_ghost),
-    do: !lose?(power_pellet_active, touching_ghost)
+    do: not lose?(power_pellet_active, touching_ghost)
 
   def win?(_has_eaten_all_dots, _power_pellet_active, _touching_ghost), do: false
 end
