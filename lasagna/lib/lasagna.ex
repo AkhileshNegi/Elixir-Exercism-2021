@@ -3,7 +3,7 @@ defmodule Lasagna do
 
   def expected_minutes_in_oven(), do: @expected_oven_time
 
-  def remaining_minutes_in_oven(remaining_min), do: @expected_oven_time - remaining_min
+  def remaining_minutes_in_oven(remaining_min), do: expected_minutes_in_oven() - remaining_min
 
   def preparation_time_in_minutes(layers), do: layers * 2
 
