@@ -1,12 +1,17 @@
 defmodule BirdCount do
   def today(list), do: List.first(list)
 
-  def increment_day_count(list) when length(list) == 0, do: [1]
-  def increment_day_count(list), do: List.update_at(list, 0, &(&1 + 1))
+  def increment_day_count([]), do: [1]
+  def increment_day_count([head | tail]), do: [head + 1 | tail]
 
-  def has_day_without_birds?(list), do: Enum.member?(list, 0)
+  def has_day_without_birds?([]), do: false
+  def has_day_without_birds?([0 | _]), do: true
+  def has_day_without_birds?([_ | tail]), do: has_day_without_birds?(tail)
 
-  def total(list), do: Enum.reduce(list, 0, &(&2 + &1))
+  def total([]), do: 0
+  def total([head | tail]), do: head + total(tail)
 
-  def busy_days(list), do: Enum.reduce(list, 0, &if(&1 > 4, do: &2 + 1, else: &2))
+  def busy_days([]), do: 0
+  def busy_days([head | tail]) when head >= 5, do: 1 + busy_days(tail)
+  def busy_days([_ | tail]), do: busy_days(tail)
 end
